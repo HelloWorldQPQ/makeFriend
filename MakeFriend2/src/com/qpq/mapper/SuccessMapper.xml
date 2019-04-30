@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <!-- 指定命名空间，类似Java的包 -->
+  <mapper namespace="com.qpq.mapper.SuccessMapper">
+  		
+  		<!-- 按照Id查询Success  -->
+  		<select id="selectById"   parameterType="int"  resultType="Success">
+  			SELECT * FROM success where sid =#{sid}
+  		</select>
+  		<!-- 按照Id查询User  -->
+  		<select id="selectByIdU"   parameterType="int"  resultType="User">
+  			SELECT * FROM user WHERE id =#{id}
+  		</select>
+  		<!-- 添加成功案例 -->
+  		<insert id="insertSuccess" parameterType="Success">
+  		insert into success(img,content,uid) values(#{img},#{content},#{uid})
+  		</insert>
+  		<!-- //根据编号删除 -->
+  		<delete id="deleteSuccess" parameterType="int">
+  		delete from success where sid=#{sid}
+  		</delete>
+  		<!-- 查询成功案例的数量 -->
+  		<select id="selectCount" resultType="int">
+  		select count(1)from success
+  		</select>
+  		<!-- 查询成功案例的记录集合 -->
+  		<select id="selectAllSuccess" parameterType="map"  resultType="Success">
+  		select sid,ptime,content,uid,img FROM success order by ptime desc limit #{begin},#{end}
+  		</select>
+  		
+ 
+  </mapper>

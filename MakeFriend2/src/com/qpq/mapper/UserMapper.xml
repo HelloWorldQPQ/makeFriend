@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <!-- 指定命名空间，类似Java的包 -->
+  <mapper namespace="com.qpq.mapper.UserMapper">
+  		
+  		<insert id="insert" parameterType="user">
+  			INSERT INTO user(username,loginname,PASSWORD,email,sex,card,phone,job,salary,marriage,introduction,height,weight,birthday,address,education,userImg) 
+  			VALUES(#{username},#{loginname},PASSWORD(#{password}),#{email},#{sex},#{card},#{phone},#{job},#{salary},#{marriage},#{introduction},#{height},#{weight},#{birthday},#{address},#{education},#{userImg})
+  		</insert>
+  		
+  		<update id="update" parameterType="user">
+  		  update user set userImg=#{userImg} where id=#{id}
+  		</update>
+  		
+  		<delete id="delete"  parameterType="int">
+  			delete from user where id =#{id}
+  		</delete>
+  		
+  		<select id="selectById"  parameterType="int"  resultType="user">
+  				select * from user where id =#{id}
+  		</select>
+  		
+  		<select id="selectByName"  parameterType="map"  resultType="user">
+  				select * from user where username like %#{name}%
+  		</select>
+  		
+  		<select id="selectByName1"  parameterType="map"  resultType="user">
+  				select * from user where username like %#{name}% limit #{begin},#{end}
+  		</select>
+  		
+  		<select id="selectAllUser"  resultType="user">
+  				select * from user
+  		</select>
+  		
+  		<select id="login"   parameterType="map"  resultType="user">
+  			 SELECT * FROM user WHERE loginname=#{loginname} AND password=PASSWORD(#{password})
+  		</select>
+  		
+  		<select id="selectByNameCount"   parameterType="map"  resultType="int">
+  			 SELECT COUNT(1) FROM user  WHERE username LIKE %#{name}%
+  		</select>
+  		
+		<select id="searchAll"   parameterType="map"  resultType="user">
+  			select * from user limit #{begin},#{end}
+  		</select>
+  		
+  		<select id="selectCount"   resultType="int">
+  			 select count(1) from user
+  		</select>
+  		
+  		<select id="selectSearch"   parameterType="map"  resultType="user">
+  			 SELECT * FROM USER WHERE 
+  			 (age BETWEEN #{age1} AND #{age2}) AND 
+  			 (height BETWEEN #{high1} AND  #{high2}) AND 
+  			 (sex LIKE #{sex}) AND 
+  			 (weight BETWEEN #{weight1} AND #{weight2}) AND 
+  			 (education LIKE %#{education}%) AND 
+  			 (marriage LIKE %#{marry}%) limit #{begin},#{end}
+  		</select>
+  		
+  		<select id="selectSearchCount"   parameterType="map"  resultType="int">
+  			 SELECT count(1) FROM USER WHERE 
+  			 (age BETWEEN #{age1} AND #{age2}) AND 
+  			 (height BETWEEN #{high1} AND  #{high2}) AND 
+  			 (sex LIKE #{sex}) AND 
+  			 (weight BETWEEN #{weight1} AND #{weight2}) AND 
+  			 (education LIKE %#{education}%) AND 
+  			 (marriage LIKE %#{marry}%)
+  		</select>
+  		
+  		<select id="searchBySex"   parameterType="map"  resultType="user">
+  			select * from user where sex=#{sex} limit #{begin},#{end}
+  		</select>
+  		
+  		<update id="updateUser" parameterType="user">
+  		  update user set username=#{username},
+  		  loginname=#{loginname},
+  		  password=PASSWORD(#{password}),
+  		  sex=#{sex},
+  		  birthday=#{birthday},
+  		  email=#{email},
+  		  card=#{card},
+  		  phone=#{phone},
+  		  job=#{job},
+  		  salary=#{salary},
+  		  marriage=#{marriage},
+  		  introduction=#{introduction},
+  		  height=#{height},
+  		  weight=#{weight},
+  		  address=#{address},
+  		  education=#{education}  where id=#{id}
+  		</update>
+  </mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <!-- 指定命名空间，类似Java的包 -->
+  <mapper namespace="com.qpq.mapper.MessageMapper">
+  		<!-- 根据用户id查询该用户的未读消息数 -->
+  		<select id="selectMessageCount" resultType="int" parameterType="int">
+  				select count(1) from message2 where recId =#{recId} and status=0
+  		</select>
+  		<!-- 根据用户id查询该用户的消息数 -->
+  		 <select id="selectAllMessageCount"   parameterType="int"  resultType="int">
+  			 select count(1) from message2 where recId =#{recId}
+  		</select> 
+  		<!-- 根据用户id查询该用户的未读消息分页显示 -->
+  		<select id="selectURMessage"   parameterType="map"  resultType="Message2">
+  			 select * from message2 where recId =#{recId} and status=0 order by create_date desc limit #{begin},#{end}
+  		</select>
+  		
+  		<!-- 根据用户id查询该用户的所有消息分页显示 -->
+  		<select id="selectAllMessage"   parameterType="map"  resultType="Message2">
+  			 select * from message2 where recId =#{recId} order by create_date desc limit #{begin},#{end}
+  		</select>
+  		
+  		<!-- 修改留言，编号不能修改 -->
+  		<update id="updateMessage" parameterType="Message">
+  		  UPDATE user SET  state=#{state} WHERE id =#{id}
+  		</update>
+  		
+  		<!-- 根据留言id，设置留言状态为已读 -->
+  		<update id="changeStatus" parameterType="int">
+  		  update message2 set status=1 where id =#{id}
+  		</update>
+  		
+  		<!-- 添加消息 -->
+  		<insert id="insertMessage2" parameterType="Message2">
+  			insert into message2(sendId,context,recId)values(#{sendId},#{context},#{recTd})
+  		</insert>
+  		
+  		<!-- 查询所有 -->
+  		<select id="selectAllMessages"  resultType="Message2">
+  		  select id,create_date,context,sendId  from message2 order by create_date asc
+  		</select>
+  </mapper>

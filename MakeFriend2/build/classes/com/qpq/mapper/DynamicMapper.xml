@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <!-- 指定命名空间，类似Java的包 -->
+  <mapper namespace="com.qpq.mapper.DynamicMapper">
+  		<!-- 查询所有 -->
+  		<select id="selectAll" resultType="int">
+  				select count(1) from dy
+  		</select>
+  		<!-- 按页查找 -->
+  		<select id="selectUser"   parameterType="map"  resultType="Dynamic">
+  			 SELECT * FROM dy order by gettime desc limit #{begin},#{pageSize}
+  		</select>
+  		<!-- 发表动态 -->
+  		<insert id="insertDynamic" parameterType="map">
+  			INSERT INTO dy (uid,content,likenum) VALUE (#{uid},#{content},0)
+  		</insert>
+  		<!-- 删除 -->
+  		<delete id="deleteDynamic"  parameterType="int">
+  			delete from dy where did=#{did}
+  		</delete>
+  		<!-- 点赞 -->
+  		<update id="updataLikenum" parameterType="int">
+  		  UPDATE dy SET likenum=likenum+1 WHERE did=#{did}
+  		</update>
+  		<!-- 查询个别动态 -->
+  		<select id="selectByDid" parameterType="int"  resultType="Dynamic">
+  		  select  * from dy where did=#{did}
+  		</select>
+  </mapper>

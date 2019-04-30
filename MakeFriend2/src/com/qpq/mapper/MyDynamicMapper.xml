@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <!-- 指定命名空间，类似Java的包 -->
+  <mapper namespace="com.qpq.mapper.MyDynamicMapper">
+  	
+  		<!-- 根据id查询用户自己的动态分页展示 -->
+  		<select id="selectUser"   parameterType="map"  resultType="Dynamic">
+  			 select * from dy where uid =#{uid} limit #{begin},#{end}
+  		</select>
+  		
+  		<!-- //查询用户发的动态总条数 -->
+  		<select id="selectDynamicCount" parameterType="int"  resultType="int">
+  		  select count(1) from dy where uid =#{uid}
+  		</select>
+  		
+  		<!-- 给动态的点赞数+1 -->
+  		<update id="addLike" parameterType="int">
+  		  update dy set likenum = likenum+1 where did =#{did}
+  		</update>
+  		
+  		<!-- //查询动态的点赞数 -->
+  		<select id="searchLikeNum" parameterType="int"  resultType="int">
+  		  select likenum from dy where did =#{did}
+  		</select>
+  </mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <!-- 指定命名空间，类似Java的包 -->
+  <mapper namespace="com.qpq.mapper.ReplyMapper">
+  		
+  		<select id="selectReply" resultType="Reply" parameterType="int">
+  				select * from reply where did=#{did}		
+  		</select>
+  		
+  		
+  		<select id="findUser" resultType="User" parameterType="int">
+  				select * from user where id=#{id}
+  		</select>
+  		
+  		
+  		<select id="findDynamic" resultType="Dynamic" parameterType="int">
+  				select * from dy where did=#{did}
+  		</select>
+  		
+  		<insert id="insertReply" parameterType="map">
+  				insert into reply(uid,did,content) value (#{uid},#{did},#{content})
+  		</insert>
+ 
+  </mapper>
